@@ -1,0 +1,32 @@
+---
+name: Home
+route: /
+---
+
+# Home
+
+Welcome to the [docz.site](https://www.docz.site)
+
+Document file sample
+
+```
+
+---
+name: User
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import User from './User.tsx';
+
+# User
+
+<PropsTable of={User} />
+
+## Basic usage
+
+<Playground>
+  <User name="ravuthz" age={28} />
+</Playground>
+
+```
