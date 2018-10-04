@@ -1,11 +1,18 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
-import registerServiceWorker from './registerServiceWorker';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import App from "./App";
+import "./index.css";
+import registerServiceWorker from "./registerServiceWorker";
+
+import { AppProvider } from "./context/AppContext";
+import { LocaleProvider } from "./context/LocaleContext";
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root') as HTMLElement
+  <AppProvider>
+    <LocaleProvider>
+      <App />
+    </LocaleProvider>
+  </AppProvider>,
+  document.getElementById("root") as HTMLElement
 );
 registerServiceWorker();
