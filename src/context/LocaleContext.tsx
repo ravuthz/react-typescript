@@ -1,18 +1,17 @@
 import * as React from "react";
 
 const initialValue = {
-  locale: "",
-  changeLocale: (locale: string) => {},
-  toggleLocale: () => {}
+  language: "",
+  changeLanguage: (locale: string) => {},
+  toggleLanguage: () => {}
 };
 
 export const LocaleContext = React.createContext(initialValue);
-
 export const LocaleConsumer = LocaleContext.Consumer;
 
 export class LocaleProvider extends React.Component {
   state = {
-    locale: "en"
+    language: "en"
   };
 
   public render() {
@@ -20,8 +19,8 @@ export class LocaleProvider extends React.Component {
       <LocaleContext.Provider
         value={{
           ...this.state,
-          changeLocale: this.changeLocale,
-          toggleLocale: this.toggleLocale
+          changeLanguage: this.changeLanguage,
+          toggleLanguage: this.toggleLanguage
         }}
       >
         {this.props.children}
@@ -29,11 +28,21 @@ export class LocaleProvider extends React.Component {
     );
   }
 
-  private changeLocale = (locale: string) => this.setState({ locale });
+  private changeLanguage = (language: string) => this.setState({ language });
 
-  private toggleLocale = () => {
-    this.setState(({ locale }: any) => ({
-      locale: locale === "en" ? "km" : "en"
+  private toggleLanguage = () => {
+    this.setState(({ language }: any) => ({
+      language: language === "en" ? "km" : "en"
     }));
   };
+}
+
+export function withLocaleContext<C extends React.ComponentClass>(
+  Component: C
+): C {
+  return (((props: any) => (
+    <LocaleConsumer>
+      {(locale: any) => <Component {...props} locale={locale} />}
+    </LocaleConsumer>
+  )) as any) as C;
 }
